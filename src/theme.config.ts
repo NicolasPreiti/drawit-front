@@ -10,4 +10,9 @@ const colors = {
   },
 }
 
-export const theme = extendTheme({ colors })
+const fonts = {
+  primary: "Finger Paint",
+  secondary: "DynaPuff"
+}
+
+export const theme = extendTheme({ colors, fonts })

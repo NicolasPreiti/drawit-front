@@ -45,6 +45,7 @@ export function ChatBox(): ReactElement {
 
   return (
     <Flex
+      fontFamily={"secondary"}
       w={"100%"}
       maxW={"500px"}
       p={4}
@@ -68,8 +69,16 @@ export function ChatBox(): ReactElement {
           overflowY={"scroll"}
         >
           {chatMessages.map((cm) => (
-            <Flex color={"black"} gap={2}>
-              <Text>{cm.author}:</Text>
+            <Flex
+              fontFamily={"secondary"}
+              fontSize={"md"}
+              fontWeight={"thin"}
+              color={"black"}
+              gap={2}
+            >
+              <Text color={cm.author === username ? "primary.two" : "pink"}>
+                {cm.author}:
+              </Text>
               <Text>{cm.message}</Text>
             </Flex>
           ))}

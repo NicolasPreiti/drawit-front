@@ -1,5 +1,6 @@
 import { Box, Button, Flex } from "@chakra-ui/react"
 import React, { ReactElement, useEffect, useRef, useState } from "react"
+import { FaEraser } from "react-icons/fa"
 import { useParams } from "react-router-dom"
 import { Socket } from "socket.io-client"
 import { ICanvasInfo, ICoords } from "../../interfaces/draw.interface"
@@ -12,16 +13,16 @@ import {
   onCleanPoints,
   onMousePos,
 } from "../../services/io.service"
-import { FaEraser } from "react-icons/fa"
 
 type RoomParams = Record<"roomName" | "player", string>
 
 export function Draw(): ReactElement {
+  const [socket, setSocket] = useState<Socket | null>(null)
+  const [myStrokeColor, setMyStrokeColor] = useState("black")
   const [strokeColor, setStrokeColor] = useState("black")
   const [context, setContext] = useState<CanvasRenderingContext2D | null>(null)
   const params = useParams<RoomParams>()
   const canvas = useRef<HTMLCanvasElement>(null)
-  let socket: Socket
   let isDrawing = false
 
   const canvasInfo: ICanvasInfo = {
@@ -32,10 +33,14 @@ export function Draw(): ReactElement {
   }
 
   useEffect(() => {
-    socket = initSocket(params.roomName as string)
-    onMousePos(writePoints)
-    onCleanPoints(canvasInfo)
-    onCleanCanvas(context, canvasInfo)
+    if (socket === null) {
+      setSocket(initSocket(params.roomName as string))
+    }
+    if (socket !== null) {
+      onMousePos(writePoints)
+      onCleanPoints(canvasInfo)
+      onCleanCanvas(context, canvasInfo)
+    }
   }, [context])
 
   useEffect(() => {
@@ -89,10 +94,6 @@ export function Draw(): ReactElement {
     emit = true,
     color?: string | undefined
   ) => {
-    if (color) {
-      setStrokeColor(color)
-    }
-
     canvasInfo.points.push(cursorPos)
     if (emit)
       emitMousePos({
@@ -104,16 +105,22 @@ export function Draw(): ReactElement {
       const prev = canvasInfo.points[canvasInfo.points.length - 2]
       const current = canvasInfo.points[canvasInfo.points.length - 1]
 
-      drawOnCanvas(prev, current)
+      drawOnCanvas(prev, current, color)
     }
   }
 
-  const drawOnCanvas = (prev: ICoords, current: ICoords) => {
+  const drawOnCanvas = (prev: ICoords, current: ICoords, color?: string) => {
     if (context) {
       context.beginPath()
       context.moveTo(prev.x, prev.y)
       context.lineTo(current.x, current.y)
-      context.stroke()
+      if (color) {
+        context.strokeStyle = color
+        context.stroke()
+      } else {
+        context.strokeStyle = strokeColor
+        context.stroke()
+      }
     }
   }
 
