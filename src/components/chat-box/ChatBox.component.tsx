@@ -1,5 +1,5 @@
 import { Flex, Input, Text } from "@chakra-ui/react"
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement, useEffect, useRef, useState } from "react"
 import { emitChatMessage, onChatMessage } from "../../services/io.service"
 import { IChatMessage, IChatMessages } from "./chat-box.interfaces"
 import styles from "./chat-box.module.css"
@@ -7,11 +7,18 @@ import styles from "./chat-box.module.css"
 export function ChatBox(): ReactElement {
   const [messageInput, setMessageInput] = useState("")
   const [chatMessages, setChatMessages] = useState<IChatMessages>([])
+  const chatBox = useRef<HTMLDivElement>(null)
   const username = sessionStorage.getItem("username") as string
 
   useEffect(() => {
     onChatMessage(updateChatMessages)
   }, [])
+
+  useEffect(() => {
+    if (chatBox) {
+      chatBox.current?.scrollTo(0, chatBox.current?.scrollHeight)
+    }
+  }, [chatMessages])
 
   const updateChatMessages = (chatMessage: IChatMessage) => {
     setChatMessages((oldMess) => [...oldMess, chatMessage])
@@ -54,6 +61,7 @@ export function ChatBox(): ReactElement {
         borderRadius={"sm"}
       >
         <Flex
+          ref={chatBox}
           className={styles.scrollbar}
           flexDirection={"column"}
           h={"100%"}

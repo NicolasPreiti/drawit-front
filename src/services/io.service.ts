@@ -46,13 +46,11 @@ export const onCleanCanvas = (context: CanvasRenderingContext2D | null, canvasIn
 }
 
 export const emitChatMessage = (chatMessage: IChatMessage) => {
-  console.log("enviado")
   socket.emit("chatMessage", chatMessage)
 }
 
 export const onChatMessage = (cb: (chatMessage: IChatMessage) => void) => {
   socket.on("chatMessage", (chatMessage: IChatMessage) => {
-    console.log("recibido")
     cb(chatMessage)
   })
 }
