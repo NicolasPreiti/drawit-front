@@ -2,7 +2,7 @@ import {io, Socket} from "socket.io-client"
 import { IChatMessage, IChatMessages } from "../components/chat-box/chat-box.interfaces"
 import { ICanvasInfo, ICoords, IMousePosition } from "../interfaces/draw.interface"
 
-const serverUrl = "http://localhost:3000"
+const serverUrl = "https://pinturillo-back-production.up.railway.app"
 let socket: Socket
 
 export const initSocket = (roomName: string, url = serverUrl): Socket => {
