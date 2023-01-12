@@ -11,6 +11,7 @@ export const initSocket = (roomName: string, url = serverUrl): Socket => {
       roomName
     }
   })
+
   return socket
 }
 
@@ -52,6 +53,17 @@ export const emitChatMessage = (chatMessage: IChatMessage) => {
 export const onChatMessage = (cb: (chatMessage: IChatMessage) => void) => {
   socket.on("chatMessage", (chatMessage: IChatMessage) => {
     cb(chatMessage)
+  })
+}
+
+export const emitOnlineUsers = (): void => {
+  console.log("dsadada")
+  socket.emit("onlineUsers")
+}
+
+export const onOnlineUsers = (cb: (usersOnline: number) => void): void => {
+  socket.on("onlineUsers", (usersOnline: number) => {
+    cb(usersOnline)
   })
 }
 
