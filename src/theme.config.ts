@@ -8,6 +8,9 @@ const colors = {
     four: '#5015bd',
     five: '#3d0a49'
   },
+  secondary: {
+    one: "#f1416b"
+  }
 }
 
 const fonts = {

@@ -39,39 +39,41 @@ export function HomePage(): ReactElement {
     <Flex
       direction={"column"}
       align={"center"}
+      justify={"center"}
       gap={10}
       w={"100%"}
       h={"100vh"}
-      backgroundColor={"primary.one"}
+      bgColor={"primary.one"}
+      bgImage={
+        "https://img.freepik.com/fotos-premium/latas-pinturas-pincel-pintura-lienzo-manchado-forma-abstracta_324016-278.jpg?w=2000"
+      }
+      bgPosition={"center"}
+      bgRepeat={"no-repeat"}
+      bgSize={"cover"}
     >
-      <Heading
-        as={"h1"}
-        className={styles.home__title}
-        fontFamily={"primary"}
-        fontSize={"7xl"}
-        textTransform={"uppercase"}
-        bgGradient={
-          "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)"
-        }
-      >
-        crayones
-      </Heading>
       <Flex
         direction={"column"}
         align={"center"}
         gap={10}
+        mt={"-100px"}
         px={8}
         py={10}
-        borderRadius={"md"}
-        bgColor={"white"}
-        boxShadow={"lg"}
+        borderRadius={"lg"}
+        bgColor={"whiteAlpha.300"}
+        boxShadow={"xl"}
+        backdropFilter={"auto"}
+        backdropBlur={"10px"}
       >
         <Flex>
           <Heading
             as={"h2"}
-            fontFamily={"secondary"}
+            className={styles.welcome}
+            fontFamily={"primary"}
             fontSize={"7xl"}
-            textTransform={"capitalize"}
+            textTransform={"uppercase"}
+            bgGradient={
+              "linear(125deg, primary.one, primary.four, primary.two)"
+            }
           >
             bienvenido
           </Heading>
@@ -105,14 +107,14 @@ export function HomePage(): ReactElement {
             <Button
               type={"submit"}
               fontFamily={"secondary"}
-              fontSize={"2xl"}
+              fontSize={"xl"}
               fontWeight={"bold"}
               textTransform={"uppercase"}
               color={"white"}
               bgColor={"primary.four"}
               _hover={{
                 color: "white",
-                bgColor: "primary.five",
+                bgColor: "primary.two",
               }}
             >
               a jugar!!!
