@@ -2,10 +2,10 @@ import {io, Socket} from "socket.io-client"
 import { IChatMessage, IChatMessages } from "../components/chat-box/chat-box.interfaces"
 import { ICanvasInfo, ICoords, IMousePosition } from "../interfaces/draw.interface"
 
-const vercel = "https://pinturillo-back-production.up.railway.app"
+const server = "https://drawit-back.onrender.com"
 const local = "http://localhost:3001"
 
-const serverUrl = vercel
+const serverUrl = server
 let socket: Socket
 
 export const initSocket = (roomName: string, url = serverUrl): Socket => {
